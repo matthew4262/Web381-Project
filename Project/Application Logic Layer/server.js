@@ -29,7 +29,5 @@ module.exports.StartServer = function () {
 
     httpServer.listen(80, hostname, () => {
         console.log("The Server will redirect all http requests to https");
-    });
-
-   
+    }); 
 }

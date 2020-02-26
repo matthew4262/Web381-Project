@@ -4,7 +4,8 @@ Dont work in any folders other than your assigned folder to prevent git conflict
 
 code to get cuurent co-ordinates  https://www.w3schools.com/html/html5_geolocation.asp
 
-api to get postal code from co-ordinates  https://postcodes.io/
 
 app.js is the js file we run to start the server. only one callback sould be in the docment. We should use modules as much as possible 
 for seperation of concerns
+
+https://openweathermap.org/weather-conditions icons for front end using the api
