@@ -1,36 +1,35 @@
-var fs = require('fs');
-var http = require('http');
-var https = require('https');
-var privateKey  = fs.readFileSync('./CertKeys/notaviruswebsite.key', 'utf8');
-var certificate = fs.readFileSync('./CertKeys/notaviruswebsite.cert', 'utf8');
-var hostname = 'localhost';
+module.exports.StartServer = function () {
+    let http = require('http');
+    let https = require('https');
+    let cert = require("../Data Access Layer/certificates").GetKeys;
+    let express = require('express');
+    let WriteLog = require('../Data Access Layer/logs').WriteToAccessLog;
 
-var credentials = {key: privateKey, cert: certificate};
-var express = require('express');
-var app = express();
+    let app = express();
+    let credentials = cert();
+    let hostname = 'localhost';
 
-app.get('/', ((req,res)=>{
-    let port = req.protocol;
-    console.log(port);
-    if (port == 'http') {
-        res.send("Youre on http bruh. Get safe")
-    }
+    app.get('/', ((req, res) => {
+        let port = req.protocol;
+        if (port == 'http') {
+            res.redirect("https://" + req.headers.host + req.url)
+        }
+        if (port == 'https') {
+            res.send("Youre on https. Well done on being safe");
+            WriteLog(`${req.connection.remoteAddress}    :   ${req.headers.host + req.url}`);
+        }
+    }))
 
-    if (port == 'https') {
-        res.send("Youre on https. Well done on being safe")
-    }
-}))
+    var httpServer = http.createServer(app);
+    var httpsServer = https.createServer(credentials, app);
 
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(443, hostname, () => {
+        console.log("The server is running on https");
+    });
 
+    httpServer.listen(80, hostname, () => {
+        console.log("The Server will redirect all http requests to https");
+    });
 
-httpServer.listen(80,hostname,()=>{
-    console.log("running on http");
-    
-});
-
-httpsServer.listen(443,hostname,()=>{
-    console.log("running on https");
-    
-});
+   
+}

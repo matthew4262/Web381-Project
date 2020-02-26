@@ -1,1 +1,4 @@
-//Main Entry point dont put anything in here yet
+var start = require('./Application Logic Layer/server').StartServer;
+
+start();
+
