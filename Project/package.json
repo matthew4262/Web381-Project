@@ -1,0 +1,14 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "WRP 381 Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jarred Channer, Henri Kirsten, Matthew West",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
