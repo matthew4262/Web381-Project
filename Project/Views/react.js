@@ -65,7 +65,7 @@ class BadVal extends React.Component {
                         id: "bads",
                     },
                     "Invalid input found!"
-    
+
                 )
             )
         )
@@ -105,7 +105,7 @@ class weatherInput extends React.Component {
                     "button",
                     {
                         id: "location",
-                        onClick: () => { doElse() }
+                        onClick: () => { getLocation() }
                     },
                     "Use my location!"
                 )
@@ -125,8 +125,17 @@ function doSomething() {
     }
 */
 }
-function doElse() {
-    console.log("it works too");
 
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
 }
+
+function showPosition(position) {
+    console.log("Latitude: " + position.coords.latitude + 
+    "Longitude: " + position.coords.longitude);
+  }
 ReactDOM.render(React.createElement(weatherInput), document.getElementById('root'))
