@@ -2,6 +2,8 @@
 
 const e = React.createElement;
 var badvalue = false;
+var lat;
+var long;
 
 class LikeButton extends React.Component {
     constructor(props) {
@@ -135,7 +137,10 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    console.log("Latitude: " + position.coords.latitude + 
-    "Longitude: " + position.coords.longitude);
-  }
+    lat = position.coords.latitude;
+    long =position.coords.longitude
+    console.log("Latitude: " + lat + 
+    "Longitude: " + long);
+ }
+
 ReactDOM.render(React.createElement(weatherInput), document.getElementById('root'))
