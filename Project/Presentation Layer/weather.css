@@ -1,0 +1,38 @@
+#root{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+body{
+    background-image: url(./Clouds.jfif);
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+
+p{
+    color: wheat;
+}
+
+h1{
+    color: wheat;
+}
+
+#zipcode{
+    margin: auto;
+    background-color: wheat;
+    padding: 7px;
+    border-style: none;
+    border-radius: 10px;
+    size: 60px;
+    margin: 5px;
+    outline-width: 0px;
+}
+
+#next,#location{
+    border-radius: 5px;
+    border-style: hidden;
+    margin: 5px auto;
+    padding: 3px;
+    background-color: wheat;
+}
