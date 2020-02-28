@@ -9,16 +9,27 @@ module.exports.StartServer = function () {
     let credentials = cert();
     let hostname = 'localhost';
 
+    app.use(function (req, res, next) {
+        if (req.secure) {
+            next();
+        } else {
+            res.redirect('https://' + req.headers.host + req.url);
+        }
+    });
+
+
     app.get('/', ((req, res) => {
-        let port = req.protocol;
-        if (port == 'http') {
-            res.redirect("https://" + req.headers.host + req.url)
-        }
-        if (port == 'https') {
-            res.send("Youre on https. Well done on being safe");
-            WriteLog(`${req.connection.remoteAddress}    :   ${req.headers.host + req.url}`);
-        }
+        res.send("Home Search Page");
+        WriteLog(`${req.connection.remoteAddress}    :   ${req.headers.host + req.url}`);
     }))
+
+    app.use('/Weather', require('./Routes/Weather'));
+
+    app.use((req, res) => {
+        res.status(404);
+        res.send("Error 404 Page not found");
+        WriteLog(`${req.connection.remoteAddress}    :   ${req.headers.host + req.url}  + Failed Connection`);
+    });
 
     var httpServer = http.createServer(app);
     var httpsServer = https.createServer(credentials, app);
@@ -29,5 +40,5 @@ module.exports.StartServer = function () {
 
     httpServer.listen(80, hostname, () => {
         console.log("The Server will redirect all http requests to https");
-    }); 
+    });
 }
